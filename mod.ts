@@ -1,9 +1,13 @@
 import { Application, send } from "https://deno.land/x/oak/mod.ts";
 
+import api from "./api.ts";
+
 const app = new Application();
 const PORT = 8000;
 
 // Middelwares
+app.use(api.routes());
+
 app.use(async (ctx, next) => {
   await next();
   // Right after next, we can use de info of the next middelware
@@ -31,10 +35,6 @@ app.use(async (ctx) => {
       root: `${Deno.cwd()}/public`,
     });
   }
-});
-
-app.use((ctx) => {
-  ctx.response.body = "jelou";
 });
 
 // Run app
