@@ -16,9 +16,13 @@ function initValues() {
   launchDaySelector.setAttribute("value", today);
 }
 
-function loadLaunches() {
+async function loadLaunches() {
   // TODO: Once API is ready.
-  // Load launches and sort by flight number.
+  const response = await fetch("/launches");
+  const data = await response.json();
+  launches = data.sort((a,b) => {
+    return a.flightNumber > b.flightNumber
+  }) 
 }
 
 async function loadPlanets() {
