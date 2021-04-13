@@ -26,6 +26,7 @@ const loadPlanetsData = async () => {
   const file = await Deno.open(path);
   const bufReader = new BufReader(file);
   const result = await parse(bufReader, { comment: "#", skipFirstRow: true });
+  // const result = await parse(bufReader, { comment: "#", skipFirstRow: true });
 
   Deno.close(file.rid);
   const planets = filterHabitablePlanets(result as Array<Planet>);
