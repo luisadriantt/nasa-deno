@@ -1,5 +1,4 @@
-import { Application, send } from "https://deno.land/x/oak/mod.ts";
-import * as log from "https://deno.land/std@0.92.0/log/mod.ts";
+import { log, Application, send } from "./deps.ts";
 
 import api from "./api.ts";
 

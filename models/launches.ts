@@ -1,6 +1,4 @@
-import * as log from "https://deno.land/std@0.92.0/log/mod.ts";
-import * as _ from "https://deno.land/x/lodash@4.17.15-es/lodash.js";
-
+import { log, flatMap } from "../deps.ts";
 export interface LaunchInterface {
   flightNumber: number;
   mission: string;
@@ -22,7 +20,7 @@ export const launchData = async () => {
 
     for (const launch of data) {
       const payloads = launch["rocket"]["second_stage"]["payloads"];
-      const customers = _.flatMap(
+      const customers = flatMap(
         payloads,
         (payload: Record<string, unknown>) => {
           return payload["customers"];

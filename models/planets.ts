@@ -1,8 +1,4 @@
-import { join } from "https://deno.land/std/path/mod.ts";
-import { BufReader } from "https://deno.land/std@0.92.0/io/bufio.ts";
-import { parse } from "https://deno.land/std/encoding/csv.ts";
-import * as log from "https://deno.land/std@0.92.0/log/mod.ts";
-import * as _ from "https://deno.land/x/lodash@4.17.15-es/lodash.js";
+import { log, join, BufReader, parse, pick } from "../deps.ts";
 
 type Planet = Record<string, string>;
 
@@ -36,7 +32,7 @@ const loadPlanetsData = async () => {
 
   if (planets) {
     return planets.map((planet) => {
-      return _.pick(planet, [
+      return pick(planet, [
         "kepler_name",
         "koi_prad",
         "koi_smass",
