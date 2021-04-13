@@ -1,7 +1,7 @@
 import * as log from "https://deno.land/std@0.92.0/log/mod.ts";
 import * as _ from "https://deno.land/x/lodash@4.17.15-es/lodash.js";
 
-interface LaunchInterface {
+export interface LaunchInterface {
   flightNumber: number;
   mission: string;
   rocket: string;
@@ -41,13 +41,13 @@ export const launchData = async () => {
 
       launches.set(flightData.flightNumber, flightData);
 
-      log.info(JSON.stringify(flightData));
+      // log.info(JSON.stringify(flightData));
     }
   } catch (error) {
     log.warning(error.message);
   }
 
-  console.log(JSON.stringify(import.meta));
+  // console.log(JSON.stringify(import.meta));
   console.log(`downloaded data for ${launches.size} SpaceX launches`);
 };
 
@@ -62,4 +62,14 @@ export const getOne = (id: number) => {
     return launches.get(id);
   }
   return null;
+};
+
+export const addOne = (data: LaunchInterface) => {
+  launches.set(
+    data.flightNumber,
+    Object.assign(data, {
+      upcoming: true,
+      customers: ["SpaceX", "NASA"],
+    })
+  );
 };

@@ -17,7 +17,6 @@ function initValues() {
 }
 
 async function loadLaunches() {
-  // TODO: Once API is ready.
   const response = await fetch("/launches");
   const data = await response.json();
   launches = data.sort((a,b) => {
@@ -49,18 +48,24 @@ function submitLaunch() {
   const flightNumber = launches[launches.length - 1]?.flightNumber + 1;
   const customers = ["ubi", "das"]
 
-  // TODO: Once API is ready.
   // Submit above data to launch system and reload launches.
-  launches.push({
-    target,
-    launchDate: launchDate / 1000,
-    mission,
-    rocket,
-    flightNumber,
-    customers,
-    upcoming: true
+  return fetch("/launches", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      launchDate: Math.floor(launchDate / 1000),
+      flightNumber,
+      mission,
+      rocket,
+      target,
+    })
   })
-   document.getElementById("launch-success").hidden = false;
+    .then(() => {
+      document.getElementById("launch-success").hidden = false;
+    })
+    .then(loadLaunches);
 }
 
 function listUpcoming() {

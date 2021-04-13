@@ -28,4 +28,18 @@ router.get("/launches/:id", (ctx) => {
   }
 });
 
+router.post("/launches", async (ctx) => {
+  try {
+    const body = await ctx.request.body();
+    const data = (body.value as unknown) as launches.LaunchInterface;
+
+    launches.addOne(await data);
+
+    ctx.response.body = { success: true };
+    ctx.response.status = 201;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 export default router;
