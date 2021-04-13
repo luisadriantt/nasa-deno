@@ -73,3 +73,12 @@ export const addOne = (data: LaunchInterface) => {
     })
   );
 };
+
+export const deleteOne = (id: number) => {
+  const aborted = launches.get(id);
+  if (aborted) {
+    aborted.upcoming = false;
+    aborted.success = false;
+  }
+  return aborted;
+};

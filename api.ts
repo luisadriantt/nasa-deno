@@ -42,4 +42,11 @@ router.post("/launches", async (ctx) => {
   }
 });
 
+router.delete("/launches/:id", (ctx) => {
+  if (ctx.params?.id) {
+    const result = launches.deleteOne(Number(ctx.params.id));
+    ctx.response.body = { succes: result };
+  }
+});
+
 export default router;
